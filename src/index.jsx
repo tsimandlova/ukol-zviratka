@@ -21,9 +21,8 @@ const App = () => {
     setZvire(nazev)
   };
 
-  // stavová proměnná, která by si moc ráda uložila hodnoty prvního zvířete, jakmile jsou zvířata z API načtená, ale po 3 hodinách už nevím, jak...
-  // const [prvniZvire, setPrvniZvire] = useState([]);
-
+  // stavová proměnná, do které se po načtení zvířat uloží první zvíře a s ním se pak pracuje, pokud uživatel nevybere žádné zvíře z 'AnimalList'
+  const [prvniZvire, setPrvniZvire] = useState([]);
 
   // funkce, která se spustí při načtení stránky a natáhne si data o zvířatech z API
   useEffect(
@@ -32,20 +31,12 @@ const App = () => {
     .then((response) => response.json())
     .then((data) => {
         setZvirata(data.zvirata);
+        setPrvniZvire(data.zvirata[0]);
         }
       )
     },
     []
   );
-
-  // useEffect(
-  //   () => {
-  //     const prvniZvireVSeznamu = zvirata.find(z => z.id === 1);
-  //     console.log(prvniZvireVSeznamu)
-  //     setPrvniZvire(prvniZvireVSeznamu)
-  //   },
-  //   [zvirata]
-  // );
 
   // proměnná, do které si uložím vyhledaný objekt zvířete na základě výběru v komponentě 'AnimalList'
   let vybraneZvireProDetail = zvirata.find(z => z.nazev === zvire);
@@ -62,17 +53,17 @@ const App = () => {
             
             { 
               zvire === null
-                ? <></>
-              //   <AnimalDetail 
-              //   foto={prvniZvire.foto}
-              //   nazev={prvniZvire.nazev}
-              //   nazevLatinsky={prvniZvire.nazevLatinsky} 
-              //   popis={prvniZvire.popis} 
-              //   domovina={prvniZvire.domovina} 
-              //   biotop={prvniZvire.biotop} 
-              //   potrava={prvniZvire.potrava} 
-              //   velikost={prvniZvire.velikost}
-              // /> 
+                ? <AnimalDetail 
+                  foto={prvniZvire.foto}
+                  nazev={prvniZvire.nazev}
+                  nazevLatinsky={prvniZvire.nazevLatinsky} 
+                  popis={prvniZvire.popis} 
+                  domovina={prvniZvire.domovina} 
+                  biotop={prvniZvire.biotop} 
+                  potrava={prvniZvire.potrava} 
+                  velikost={prvniZvire.velikost}
+                  zoo={prvniZvire.zoo}
+                /> 
                 : <AnimalDetail 
                     foto={vybraneZvireProDetail.foto}
                     nazev={vybraneZvireProDetail.nazev}
@@ -82,9 +73,11 @@ const App = () => {
                     biotop={vybraneZvireProDetail.biotop} 
                     potrava={vybraneZvireProDetail.potrava} 
                     velikost={vybraneZvireProDetail.velikost}
+                    zoo={vybraneZvireProDetail.zoo}
                   /> 
 
             }
+
     
           </div>
 

@@ -1,9 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './style.css';
 
-const AnimalDetail = ({foto, nazev, nazevLatinsky, popis, domovina, biotop, potrava, velikost}) => {
+import Zoo from './../Zoo';
+
+const AnimalDetail = ({foto, nazev, nazevLatinsky, popis, domovina, biotop, potrava, velikost, zoo}) => {
+
+  const [zooPrehled, setZooPrehled] = useState([]);
+
+  useEffect(
+    () => {
+    fetch('https://lrolecek.github.io/zviratka-api/zoo.json')
+    .then((response) => response.json())
+    .then((data) => {
+        setZooPrehled(data.zoo);
+        }
+      )
+    },
+    [zoo]
+  );
+
   return (
-<div className="detail">
+    <div className="detail">
 			<div className="detail__content">
 
 				<div className="detail__header">
@@ -37,10 +54,20 @@ const AnimalDetail = ({foto, nazev, nazevLatinsky, popis, domovina, biotop, potr
 							<p>{velikost}</p>
 						</div>
 					</div>
-
+          <hr />
 					<div className="detail__zoo">
 						<h3>Najdete v těchto ZOO</h3>
-						<p>Praha, Dvůr Králové, Olomouc</p>
+            <p>Přehled všech zoo z API</p>
+            {
+              zooPrehled.map(
+                z => (
+                  <Zoo key={z.id} jmeno={z.jmeno} />
+                )
+              )
+            }
+            <hr/>
+            <p>Tady bude přehled zoo zvířete: {console.log(zoo)}</p>
+						
 					</div>
 				</div>
 
