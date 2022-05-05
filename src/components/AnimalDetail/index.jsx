@@ -16,7 +16,7 @@ const AnimalDetail = ({foto, nazev, nazevLatinsky, popis, domovina, biotop, potr
         }
       )
     },
-    [zoo]
+    []
   );
 
   return (
@@ -24,7 +24,7 @@ const AnimalDetail = ({foto, nazev, nazevLatinsky, popis, domovina, biotop, potr
 			<div className="detail__content">
 
 				<div className="detail__header">
-					<img className="detail__image" src={`${foto}`} alt="xxx" />
+					<img className="detail__image" src={`${foto}`} alt={`${nazev}`} />
 					<div className="detail__title">
 						<h2 className="detail__name"><span>{nazev}</span></h2>
 						<div className="detail__latin"><span>{nazevLatinsky}</span></div>

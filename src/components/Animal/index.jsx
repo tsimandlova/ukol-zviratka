@@ -6,7 +6,7 @@ const Animal = ({foto, nazev, nazevLatinsky}) => {
     <>
     <div className="animal">
     <div className="animal__image">
-      <img src={`${foto}`} alt="slon" />
+      <img src={`${foto}`} alt={`${nazev}`} />
     </div>
     <div className="animal__desc">
       <div className="animal__name">{nazev}</div>
